@@ -8,4 +8,5 @@ from .utils.readchar import readkey, keys
 
 __author__ = "iiPython"
 __license__ = "MIT"
+__version__ = "0.1.1"
 __copyright__ = "Copyright 2021 iiPython"

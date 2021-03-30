@@ -1,6 +1,8 @@
 # Modules
 import os
+import codecs
 import pathlib
+import os.path
 from setuptools import setup
 
 # Grab our current path
@@ -19,10 +21,25 @@ def find_packages(dir):
 
     return packs
 
+# Handle versions (https://github.com/pypa/pip/blob/main/setup.py#L11)
+def read(rel_path):
+    here = os.path.abspath(os.path.dirname(__file__))
+    with codecs.open(os.path.join(here, rel_path), 'r') as fp:
+        return fp.read()
+
+def get_version(rel_path):
+    for line in read(rel_path).splitlines():
+        if line.startswith("__version__"):
+            delim = "\"" if "\"" in line else "'"
+            return line.split(delim)[1]
+
+    else:
+        raise RuntimeError("Unable to find version string.")
+
 # Handle setup
 setup(
     name = "python-termenu",
-    version = "0.1.0a-1",
+    version = get_version("src/termenu/__init__.py"),
     description = "Simple terminal-based menus in Python",
     long_description = long_description,
     long_description_content_type = "text/markdown",
@@ -42,7 +59,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    keywords = "menu, terminal, cli",
+    keywords = "menu terminal cli console keystroke ascii",
     package_dir = {"": "src"},
     packages = find_packages("src"),
     python_requires = ">=3.6, <4",
