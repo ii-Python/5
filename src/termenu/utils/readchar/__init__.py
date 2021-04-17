@@ -1,6 +1,6 @@
-from .readchar import readchar, readkey
 from . import keys
+from .read import readchar, readchar as readkey
 
-__all__ = [readchar, readkey, keys]
-
-__version__ = "2.0.1"
+__author__ = "iiPython"
+__license__ = "MIT"
+__copyright__ = "Copyright 2021 iiPython"
