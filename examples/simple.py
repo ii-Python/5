@@ -1,8 +1,8 @@
 # Modules
-from termenu import Menu
+from termenu import PlainMenu
 
 # Initialize our menu
-menu = Menu()
+menu = PlainMenu()
 
 # Main option list
 @menu.option("Check out GitHub!")

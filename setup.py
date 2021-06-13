@@ -66,5 +66,6 @@ setup(
     project_urls = {
         "Bug Reports": "https://github.com/ii-Python/termenu/issues",
         "Source": "https://github.com/ii-Python/termenu/",
-    }
+    },
+    install_requires = ["iikp", "colorama", "rich"]
 )

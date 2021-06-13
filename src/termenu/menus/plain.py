@@ -1,16 +1,12 @@
 # Modules
-import colorama
+from rich import print
+from iikp import readchar, keys
 from .options import OptionHandler
-
-from ..utils.readchar import readkey, keys
 from ..utils.ascii import AsciiHolder, clear
 
-from ..utils.exceptions import OptionAlreadyExists
-
 # Menu class
-class Menu(object):
-
-    """The main Menu class to use for creating menus"""
+class PlainMenu(object):
+    """The plain Menu class to use for creating multi-choice menus"""
 
     def __init__(self, label = None):
         self.index = 0
@@ -22,23 +18,20 @@ class Menu(object):
         self.ascii = AsciiHolder()
         self.options = OptionHandler()
 
-    def add_option(self, text, callback):
-
+    def add_option(self, text, callback, attrs: dict = {}):
         """Takes text and a callback and creates an option from it"""
 
-        self.options.add(text, callback)
+        self.options.add(text, callback, attrs = attrs)
 
-    def option(self, text):
-
+    def option(self, text, attrs: dict = {}):
         """Internal decorator for add_option"""
 
         def inner_wrapper(callback):
-            return self.add_option(text, callback)
+            return self.add_option(text, callback, attrs)
 
         return inner_wrapper
 
     def after_invoke(self):
-
         """Calls the given function everytime a callback is invoked"""
 
         def inner_wrapper(callback):
@@ -47,26 +40,18 @@ class Menu(object):
         return inner_wrapper
 
     def display(self):
-
         """Shows the menu on the screen once, use .mainLoop() for a repeating menu"""
-
-        # Ensure colorama is initialized
-        colorama.init()
 
         # Create a main loop
         while True:
-
-            # Clear screen
             clear()
 
-            # Print label
+            # Handle label
             if self.label is not None:
-                print(self.label)
-                print()
+                print(self.label + "\n")
 
             # Print out all of our options
             for opt in self.options:
-
                 i = self.options.index(opt)
                 if i == self.index:
                     print(self.ascii.is_active(opt["text"]))
@@ -75,7 +60,7 @@ class Menu(object):
                     print(self.ascii.not_active(opt["text"]))
 
             # Read character input
-            r = readkey()
+            r = readchar()
             if r == keys.UP:
                 self.index -= 1
 
@@ -102,7 +87,6 @@ class Menu(object):
                 self.index = 0
 
     def close(self):
-
         """'Kills' the menu instance, allowing you to stop it from reoccuring.
         In the event you end up mass spamming this, just use the .display() method
         on the menu rather than .mainLoop()
@@ -112,7 +96,6 @@ class Menu(object):
         self.active = False
 
     def mainLoop(self):
-
         """Makes an infinite loop of the menu"""
 
         # Main loop

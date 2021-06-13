@@ -1,6 +1,5 @@
 # Option handler
 class OptionHandler(object):
-
     """The handler menus use for handling options"""
 
     def __init__(self):
@@ -15,7 +14,6 @@ class OptionHandler(object):
         return self
 
     def __next__(self):
-
         try:
             self.itercount += 1
             return self.options[self.itercount - 1]
@@ -23,30 +21,24 @@ class OptionHandler(object):
         except KeyError:
             raise StopIteration
 
-    def add(self, text, callback):
+    def add(self, text, callback, attrs: dict = {}):
         opt_id = self.__genid__()
-
         self.options[opt_id] = {
             "text": text,
-            "callback": callback
+            "callback": callback,
+            "attrs": attrs
         }
 
     def index(self, option):
-
         i = 0
         for opt in self.options:
-
             if self.options[opt] == option:
                 return i
-
             i += 1
 
     def get(self, index):
-
         i = 0
         for opt in self.options:
-
             if i == index:
                 return self.options[opt]
-
             i += 1

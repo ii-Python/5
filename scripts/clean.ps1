@@ -1,8 +1,8 @@
 echo "Cleaning project..."
 
-rm -rf build
-rm -rf dist
+rm build
+rm dist
 
-rm -rf src/python_*
+rm src/python_termenu.egg-info
 
 echo "Project cleaned!"

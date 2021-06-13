@@ -4,8 +4,8 @@ import colorama
 import subprocess
 
 # Text holder
+colorama.init()
 class AsciiHolder(object):
-
     """Takes ascii text and converts it using colorama"""
 
     def not_active(self, text):
@@ -16,9 +16,4 @@ class AsciiHolder(object):
 
 # Clear function
 def clear():
-
-    command = "clear"
-    if os.name == "nt":
-        command = "cls"
-
-    subprocess.run([command], shell = True)
+    subprocess.run(["clear" if os.name != "nt" else "cls"], shell = True)

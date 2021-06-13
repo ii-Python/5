@@ -1,4 +1,4 @@
-./scripts/clean.sh
+./scripts/clean.ps1
 
 # Build project
 py setup.py bdist_wheel
