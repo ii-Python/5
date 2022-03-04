@@ -1,3 +1,5 @@
+## ARCHIVED IN FAVOR OF [IIPYTHON.PY](https://github.com/ii-Python/iiPython.py)
+
 # Termenu
 ## Easy-to-use, python-based menus in Python.
 ---
